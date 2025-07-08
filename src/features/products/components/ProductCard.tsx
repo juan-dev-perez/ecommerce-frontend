@@ -1,3 +1,4 @@
+import { useCart } from "../../../store/cart.store";
 import type { Product } from "../types";
 
 type Props = {
@@ -5,6 +6,7 @@ type Props = {
 };
 
 export function ProductCard({ product }: Props) {
+  const { addToCart } = useCart();
   return (
     <div className="card w-full bg-base-100 shadow-md hover:shadow-lg transition-all">
       <figure>
@@ -23,7 +25,19 @@ export function ProductCard({ product }: Props) {
           <span className="text-lg font-semibold text-primary">
             ${product.price}
           </span>
-          <button className="btn btn-sm btn-primary">Agregar</button>
+          <button
+            className="btn btn-sm btn-primary"
+            onClick={() =>
+              addToCart({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.images?.[0]?.url ?? "",
+              })
+            }
+          >
+            Agregar
+          </button>
         </div>
       </div>
     </div>
