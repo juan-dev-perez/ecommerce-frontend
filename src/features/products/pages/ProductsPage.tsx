@@ -1,7 +1,7 @@
 import { useFetchProducts } from "../hooks/useFetchProducts";
 import { ProductCard } from "../components/ProductCard";
 
-export function ProductsPage() {
+export default function ProductsPage() {
   const { products, loading, error } = useFetchProducts();
 
   if (loading) return <div className="text-center">Cargando productos...</div>;
