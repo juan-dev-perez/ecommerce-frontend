@@ -7,16 +7,26 @@ function Navbar() {
   const totalPrice = getTotalPrice();
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="navbar bg-base-100 shadow-sm">
-        <div className="flex-1">
-          <Link to={"/"} className="btn btn-ghost text-xl">
-            Mega Tecnologia
+    <div className="sticky top-0 z-50 w-full h-16 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-full items-center justify-between m-auto">
+        <div className="flex flex-row gap-8">
+          <Link to={"/"} className=" text-xl font-bold">
+            Mi Tienda
           </Link>
+          <ul className="flex items-center gap-6">
+            <li>
+              <Link to={"/products"}>Productos</Link>
+            </li>
+            <li>
+              <Link to={"/categories"}>Categorías</Link>
+            </li>
+          </ul>
         </div>
-        <div className="flex-none">
+        
+        <div className="flex flex-row gap-4">
+          <input type="text" placeholder="Buscar" className="input input-bordered w-70" />
           {/* menu carrito */}
-          <div className="dropdown dropdown-end mx-3">
+          <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
               role="button"
@@ -43,12 +53,13 @@ function Navbar() {
                 </span>
               </div>
             </div>
+            
             <div
               tabIndex={0}
               className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
             >
               <div className="card-body">
-                <span className="text-lg font-bold">{totalItems} Items</span>
+                <span className="text-lg font-bold">{totalItems || 'Sin '} {totalItems===1 ? 'Item' : 'Items' }</span>
                 <span className="text-info">Subtotal: ${totalPrice}</span>
                 <div className="card-actions">
                   <Link to={"/cart"} className="btn btn-primary btn-block">
@@ -59,7 +70,7 @@ function Navbar() {
             </div>
           </div>
           {/* menu usuario */}
-          <div className="dropdown dropdown-end mr-5">
+          <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
               role="button"
