@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
-import type { Product } from "../types";
+import type { ProductPaginate } from "../types";
 import { getProducts } from "../../../api/products";
 
+const initialProductPaginate: ProductPaginate = {
+  data: [],
+  meta: {
+    page: 1,
+    lastPage: 1,
+  },
+};
+
 export function useFetchProducts() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductPaginate>(initialProductPaginate);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

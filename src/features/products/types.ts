@@ -15,3 +15,11 @@ export interface Product {
     url: string;
   }[];
 }
+
+export interface ProductPaginate {
+  data: Product[];
+  meta: {
+    page: number;
+    lastPage: number
+  }
+}
