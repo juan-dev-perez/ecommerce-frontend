@@ -7,7 +7,7 @@ function Navbar() {
   const totalPrice = getTotalPrice();
 
   return (
-    <div className="sticky top-0 z-50 w-full h-16 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="navbar bg-base-100 shadow-sm">
       <div className="container flex h-full items-center justify-between m-auto">
         <div className="flex flex-row gap-8">
           <Link to={"/"} className=" text-xl font-bold">
