@@ -1,7 +1,7 @@
 import { http } from "./client";
 import type { Product, ProductPaginate } from "../features/products/types";
 
-export const getProducts = () => http.get<ProductPaginate>("/product");
+export const getProducts = (page = 1, limit = 12) => http.get<ProductPaginate>(`/product?page=${page}&limit=${limit}`);
 
 export const getProductById = (id: string): Promise<Product> =>
   http.get(`/product/${id}`);

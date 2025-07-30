@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { ProductPaginate } from "../types";
 import { getProducts } from "../../../api/products";
 
-const initialProductPaginate: ProductPaginate = {
+export const initialProductPaginate: ProductPaginate = {
   data: [],
   meta: {
     page: 1,
@@ -18,7 +18,7 @@ export function useFetchProducts() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getProducts();
+        const data = await getProducts(1,8);
         setProducts(data);
       } catch (err) {
         console.error("[useFetchProducts]", err);

@@ -1,11 +1,11 @@
-import ProductsPage from "../../products/pages/ProductsPage";
 import Hero from "../components/Hero";
+import Ofertas from "../components/Ofertas";
 
 export default function HomePage() {
   return (
     <div className="space-y-16">
       <Hero />
-      <ProductsPage/>
+      <Ofertas/>
     </div>
   );
 }
