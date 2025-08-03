@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../store/cart.store";
+import { formatPrice } from '../utils/currencyFormat';
 
 function Navbar() {
   const { getTotalItems, getTotalPrice } = useCart();
@@ -60,7 +61,7 @@ function Navbar() {
             >
               <div className="card-body">
                 <span className="text-lg font-bold">{totalItems || 'Sin '} {totalItems===1 ? 'Item' : 'Items' }</span>
-                <span className="text-info">Subtotal: ${totalPrice}</span>
+                <span className="text-info">Subtotal: {formatPrice(totalPrice)}</span>
                 <div className="card-actions">
                   <Link to={"/cart"} className="btn btn-primary btn-block">
                     Ver carrito

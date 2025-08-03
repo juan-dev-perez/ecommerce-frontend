@@ -1,6 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { useCart } from '../../../store/cart.store';
+import { formatPrice } from '../../../utils/currencyFormat';
 
 export default function CartPage() {
   const {
@@ -38,9 +39,9 @@ export default function CartPage() {
               <div className="flex-1">
                 <h3 className="text-lg font-semibold">{item.name}</h3>
                 <p className="text-sm text-gray-500">Cantidad: {item.quantity}</p>
-                <p className="text-sm">Precio unitario: ${item.price}</p>
+                <p className="text-sm">Precio unitario: {formatPrice(item.price)}</p>
                 <p className="text-sm font-medium">
-                  Subtotal: ${item.price * item.quantity}
+                  Subtotal: {formatPrice(item.price * item.quantity)}
                 </p>
               </div>
               <button
@@ -56,7 +57,7 @@ export default function CartPage() {
 
       <div className="mt-8 flex justify-between items-center">
         <div>
-          <p className="text-lg font-semibold">Total: ${getTotalPrice()}</p>
+          <p className="text-lg font-semibold">Total: {formatPrice(getTotalPrice())}</p>
           <p className="text-sm text-gray-500">{getTotalItems()} ítems</p>
         </div>
         <div className="flex gap-3">

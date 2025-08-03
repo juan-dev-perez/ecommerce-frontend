@@ -1,4 +1,5 @@
 import { useCart } from "../../../store/cart.store";
+import { formatPrice } from "../../../utils/currencyFormat";
 import type { Product } from "../types";
 
 type Props = {
@@ -23,7 +24,7 @@ export function ProductCard({ product }: Props) {
         </p>
         <div className="flex justify-between items-center mt-2">
           <span className="text-lg font-semibold text-primary">
-            ${product.price}
+            {formatPrice(product.price)}
           </span>
           <button
             className="btn btn-sm btn-primary"
