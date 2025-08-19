@@ -1,4 +1,4 @@
-import { ProductCard } from "../components/ProductCard";
+import ProductCard from "../components/ProductCard";
 import { useProductsPaginated } from "../hooks/useProductsPaginated";
 
 export default function ProductsPage() {

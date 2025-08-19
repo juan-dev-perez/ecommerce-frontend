@@ -4,6 +4,7 @@ import CartPage from "../features/cart/pages/CartPage";
 import HomePage from "../features/home/pages/HomePage";
 import ProductsPage from "../features/products/pages/ProductsPage";
 import Footer from "../components/Footer";
+import ProductDetailPage from "../features/products/pages/ProductDetailPage";
 
 export default function AppRoutes() {
   return (
@@ -14,6 +15,7 @@ export default function AppRoutes() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/products/:id" element={<ProductDetailPage />} />
             <Route path="/cart" element={<CartPage />} />
           </Routes>
         </main>

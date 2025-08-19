@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useCart } from "../../../store/cart.store";
 import { formatPrice } from "../../../utils/currencyFormat";
 import type { Product } from "../types";
@@ -6,10 +7,10 @@ type Props = {
   product: Product;
 };
 
-export function ProductCard({ product }: Props) {
+export default function ProductCard({ product }: Props) {
   const { addToCart } = useCart();
   return (
-    <div className="card w-full bg-base-100 shadow-md hover:shadow-lg transition-all">
+    <Link to={`/products/${product.id}`} className="card w-full bg-base-100 shadow-md hover:shadow-lg transition-all">
       <figure>
         <img
           src={product.images?.[0]?.url || "https://placehold.co/600x400"}
@@ -26,7 +27,7 @@ export function ProductCard({ product }: Props) {
           <span className="text-lg font-semibold text-primary">
             {formatPrice(product.price)}
           </span>
-          <button
+          {/* <button
             className="btn btn-sm btn-primary"
             onClick={() =>
               addToCart({
@@ -38,9 +39,9 @@ export function ProductCard({ product }: Props) {
             }
           >
             Agregar
-          </button>
+          </button> */}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
