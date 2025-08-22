@@ -10,7 +10,7 @@ export default function Hero() {
       }}
     >
       <div className="hero-overlay"></div>
-      <div className="hero-content text-neutral-content text-center">
+      <div className="hero-content text-neutral-content text-center h-[60vh]">
         <div className="max-w-xl">
           <h1 className="mb-5 text-5xl font-bold">
             ¡Bienvenido a la tienda gamer definitiva!

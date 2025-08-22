@@ -1,18 +1,43 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../store/cart.store";
-import { formatPrice } from '../utils/currencyFormat';
+import { formatPrice } from "../utils/currencyFormat";
 
 function Navbar() {
   const { getTotalItems, getTotalPrice } = useCart();
   const totalItems = getTotalItems();
   const totalPrice = getTotalPrice();
 
+  //TODO pendiente traer categorias de la base de datos, backend
+  // useEffect(() => {
+  //   const traerCategorias = () => {
+  //     const
+  //   }
+
+  //   traerCategorias();
+
+  // },[]);
+
+  const categorias = [
+    { name: "Smartphones" },
+    { name: "Laptops" },
+    { name: "Auriculares" },
+    { name: "Smartwatches" },
+    { name: "Cámaras" },
+    { name: "Gaming" },
+  ];
+  // categorais de prueba
+
   return (
-    <div className="navbar bg-base-100 shadow-sm">
-      <div className="container flex h-full items-center justify-between m-auto">
+    <header className="navbar shadow-sm sticky top-0 z-50 w-full backdrop-blur bg-white/80 supports-[backdrop-filter]:bg-white/60">
+      <div className="container flex h-full items-center justify-between mx-auto">
         <div className="flex flex-row gap-8">
-          <Link to={"/"} className=" text-xl font-bold">
-            Mi Tienda
+          <Link to={"/"} className="flex items-center space-x-1">
+            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-lg">
+                TF
+              </span>
+            </div>
+            <span className="font-bold text-xl">TecnoFix</span>
           </Link>
           <ul className="flex items-center gap-6">
             <li>
@@ -23,9 +48,16 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        
+
         <div className="flex flex-row gap-4">
-          <input type="text" placeholder="Buscar" className="input input-bordered w-70" />
+
+          {/* input del buscador */}
+          <input
+            type="search"
+            placeholder="Buscar"
+            className="input w-70"
+          />
+
           {/* menu carrito */}
           <div className="dropdown dropdown-end">
             <div
@@ -54,14 +86,18 @@ function Navbar() {
                 </span>
               </div>
             </div>
-            
+
             <div
               tabIndex={0}
               className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
             >
               <div className="card-body">
-                <span className="text-lg font-bold">{totalItems || 'Sin '} {totalItems===1 ? 'Item' : 'Items' }</span>
-                <span className="text-info">Subtotal: {formatPrice(totalPrice)}</span>
+                <span className="text-lg font-bold">
+                  {totalItems || "Sin "} {totalItems === 1 ? "Item" : "Items"}
+                </span>
+                <span className="text-info">
+                  Subtotal: {formatPrice(totalPrice)}
+                </span>
                 <div className="card-actions">
                   <Link to={"/cart"} className="btn btn-primary btn-block">
                     Ver carrito
@@ -104,7 +140,7 @@ function Navbar() {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 
