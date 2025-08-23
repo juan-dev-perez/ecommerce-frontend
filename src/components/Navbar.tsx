@@ -32,7 +32,7 @@ function Navbar() {
       <div className="container flex h-full items-center justify-between mx-auto">
         <div className="flex flex-row gap-8">
           <Link to={"/"} className="flex items-center space-x-1">
-            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
+            <div className="btn btn-sm btn-square btn-primary ">
               <span className="text-primary-foreground font-bold text-lg">
                 TF
               </span>

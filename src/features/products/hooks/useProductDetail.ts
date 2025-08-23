@@ -8,6 +8,7 @@ export function useProductDetail() {
   const [product, setProduct] = useState<Product>();
 
   useEffect(() => {
+    // evaluar si es un numero el que recibo por el param
     const parsedId = Number(id);
     if (!id || isNaN(parsedId)) {
       console.warn("ID inválido:", id);

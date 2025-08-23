@@ -11,7 +11,7 @@ type CartItem = {
 
 type CartState = {
   items: CartItem[];
-  addToCart: (product: Omit<CartItem, 'quantity'>) => void;
+  addToCart: (product: Omit<CartItem, 'quantity'>,cantidad:number) => void;
   removeFromCart: (productId: string) => void;
   clearCart: () => void;
   getTotalItems: () => number;
@@ -23,20 +23,20 @@ export const useCart = create<CartState>()(
     (set, get) => ({
       items: [],
 
-      addToCart: (product) => {
+      addToCart: (product, cantidad = 1) => {
         const existing = get().items.find((item) => item.id === product.id);
 
         if (existing) {
           set({
             items: get().items.map((item) =>
               item.id === product.id
-                ? { ...item, quantity: item.quantity + 1 }
+                ? { ...item, quantity: item.quantity + cantidad }
                 : item
             ),
           });
         } else {
           set({
-            items: [...get().items, { ...product, quantity: 1 }],
+            items: [...get().items, { ...product, quantity: cantidad }],
           });
         }
       },
