@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCart } from "../../../store/cart.store";
 import { formatPrice } from "../../../utils/currencyFormat";
 import type { Product } from "../types";
+import QuantitySelector from "../../../components/QuantitySelector";
 
 interface Props {
   product: Product;
@@ -12,6 +13,10 @@ export default function ProductDetail({ product }: Props) {
   const [cantidad, setCantidad] = useState(1);
   const [showToast, setShowToast] = useState(false);
 
+  const handleQuantityChange = (nuevaCantidad: number) => {
+    setCantidad(nuevaCantidad);
+  };
+
   const handleAdd = () => {
     addToCart(
       {
@@ -19,6 +24,7 @@ export default function ProductDetail({ product }: Props) {
         name: product.name,
         price: product.price,
         image: product.images?.[0]?.url ?? "",
+        stock: product.stock
       },
       cantidad
     );
@@ -46,30 +52,12 @@ export default function ProductDetail({ product }: Props) {
         {formatPrice(product.price)}
       </p>
 
-      {/* selectro de cantidad */}
-      <div className="flex items-center">
-        <div className="flex gap-2 items-center rounded-lg border-borde border justify-between w-32">
-          <button
-            onClick={() => setCantidad(cantidad - 1)}
-            className={`btn btn-md btn-ghost text-xl ${
-              cantidad <= 1 && "btn-disabled"
-            }`}
-            disabled={cantidad <= 1}
-          >
-            -
-          </button>
-          <span>{cantidad}</span>
-          <button
-            onClick={() => setCantidad(cantidad + 1)}
-            className={`btn btn-md btn-ghost text-xl ${
-              product.stock === cantidad && "btn-disabled"
-            }`}
-            disabled={cantidad === product.stock}
-          >
-            +
-          </button>
-        </div>
-      </div>
+      {/* selector de cantidad */}
+      <QuantitySelector
+        cantidad={cantidad}
+        productStock={product.stock}
+        onCantidadChange={handleQuantityChange}
+      />
 
       {/* boton agregar al carrito */}
       <button

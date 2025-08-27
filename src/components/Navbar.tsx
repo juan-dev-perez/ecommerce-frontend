@@ -106,6 +106,7 @@ function Navbar() {
               </div>
             </div>
           </div>
+          
           {/* menu usuario */}
           <div className="dropdown dropdown-end">
             <div

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../../../store/cart.store";
+// import { useCart } from "../../../store/cart.store";
 import { formatPrice } from "../../../utils/currencyFormat";
 import type { Product } from "../types";
 
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function ProductCard({ product }: Props) {
-  const { addToCart } = useCart();
+  // const { addToCart } = useCart();
   return (
     <Link to={`/products/${product.id}`} className="card w-full bg-base-100 shadow-md hover:shadow-lg transition-all">
       <figure>
