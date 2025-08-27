@@ -4,8 +4,14 @@ import { formatPrice } from "../../../utils/currencyFormat";
 import QuantitySelector from "../../../components/QuantitySelector";
 
 export default function CartPage() {
-  const { items, removeFromCart, clearCart, getTotalItems, getTotalPrice, updateProductQuantityCart } =
-    useCart();
+  const {
+    items,
+    removeFromCart,
+    clearCart,
+    getTotalItems,
+    getTotalPrice,
+    updateProductQuantityCart,
+  } = useCart();
 
   if (items.length === 0) {
     return (
@@ -21,9 +27,6 @@ export default function CartPage() {
   const handleQuantityChange = (productId: number, nuevaCantidad: number) => {
     updateProductQuantityCart(productId, nuevaCantidad);
   };
-
-console.log(items);
-
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -60,7 +63,13 @@ console.log(items);
               </div>
 
               <div className="flex flex-col gap-2">
-                <QuantitySelector cantidad={item.quantity} productStock={item.stock} onCantidadChange={(nuevaCantidad) => handleQuantityChange(item.id,nuevaCantidad )} />
+                <QuantitySelector
+                  cantidad={item.quantity}
+                  productStock={item.stock}
+                  onCantidadChange={(nuevaCantidad) =>
+                    handleQuantityChange(item.id, nuevaCantidad)
+                  }
+                />
                 <button
                   className="btn btn-error btn-sm"
                   onClick={() => removeFromCart(item.id)}
