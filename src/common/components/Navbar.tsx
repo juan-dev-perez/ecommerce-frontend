@@ -1,31 +1,13 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../store/cart.store";
-import { formatPrice } from "../utils/currencyFormat";
+import { useCart } from "../../store/cart.store";
+import { formatPrice } from "../../utils/currencyFormat";
+import { useFetchCategories } from "../hooks/useFetchCategories";
 
 function Navbar() {
+  const { categories } = useFetchCategories();
   const { getTotalItems, getTotalPrice } = useCart();
   const totalItems = getTotalItems();
   const totalPrice = getTotalPrice();
-
-  //TODO pendiente traer categorias de la base de datos, backend
-  // useEffect(() => {
-  //   const traerCategorias = () => {
-  //     const
-  //   }
-
-  //   traerCategorias();
-
-  // },[]);
-
-  const categorias = [
-    { name: "Smartphones" },
-    { name: "Laptops" },
-    { name: "Auriculares" },
-    { name: "Smartwatches" },
-    { name: "Cámaras" },
-    { name: "Gaming" },
-  ];
-  // categorais de prueba
 
   return (
     <header className="navbar shadow-sm sticky top-0 z-50 w-full backdrop-blur bg-white/80 supports-[backdrop-filter]:bg-white/60">
@@ -41,22 +23,26 @@ function Navbar() {
           </Link>
           <ul className="flex items-center gap-6">
             <li>
-              <Link to={"/products"}>Productos</Link>
+              <Link to={"/products"} className="font-semibold">
+                Productos
+              </Link>
             </li>
-            <li>
-              <Link to={"/categories"}>Categorías</Link>
-            </li>
+            {categories != undefined &&
+              categories.map((category) => {
+                return (
+                  <li key={category.id}>
+                    <Link to={`/category/${category.name}`}>
+                      {category.name}
+                    </Link>
+                  </li>
+                );
+              })}
           </ul>
         </div>
 
         <div className="flex flex-row gap-4">
-
           {/* input del buscador */}
-          <input
-            type="search"
-            placeholder="Buscar"
-            className="input w-70"
-          />
+          <input type="search" placeholder="Buscar" className="input w-70" />
 
           {/* menu carrito */}
           <div className="dropdown dropdown-end">
@@ -81,7 +67,11 @@ function Navbar() {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />{" "}
                 </svg>
-                <span className="badge badge-sm indicator-item">
+                <span
+                  className={`badge badge-sm indicator-item ${
+                    totalItems === 0 && "invisible"
+                  }`}
+                >
                   {totalItems}
                 </span>
               </div>
@@ -106,7 +96,7 @@ function Navbar() {
               </div>
             </div>
           </div>
-          
+
           {/* menu usuario */}
           <div className="dropdown dropdown-end">
             <div

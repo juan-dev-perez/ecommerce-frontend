@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCart } from "../../../store/cart.store";
 import { formatPrice } from "../../../utils/currencyFormat";
 import type { Product } from "../types";
-import QuantitySelector from "../../../components/QuantitySelector";
+import QuantitySelector from "../../../common/components/QuantitySelector";
 
 interface Props {
   product: Product;

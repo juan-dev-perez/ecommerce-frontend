@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from "../common/components/Navbar";
 import CartPage from "../features/cart/pages/CartPage";
 import HomePage from "../features/home/pages/HomePage";
 import ProductsPage from "../features/products/pages/ProductsPage";
-import Footer from "../components/Footer";
+import Footer from "../common/components/Footer";
 import ProductDetailPage from "../features/products/pages/ProductDetailPage";
 
 export default function AppRoutes() {

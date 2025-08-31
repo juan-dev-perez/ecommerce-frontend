@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../../store/cart.store";
 import { formatPrice } from "../../../utils/currencyFormat";
-import QuantitySelector from "../../../components/QuantitySelector";
+import QuantitySelector from "../../../common/components/QuantitySelector";
 
 export default function CartPage() {
   const {
