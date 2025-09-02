@@ -1,18 +1,18 @@
 import { http } from "./client";
 import type { Product, ProductPaginate } from "../features/products/types";
 
-export const getProducts = (page = 1, limit = 12) => http.get<ProductPaginate>(`/product?page=${page}&limit=${limit}`);
+export const getProducts = (page = 1, limit = 12) => http.get<ProductPaginate>(`/products?page=${page}&limit=${limit}`);
 
 export const getProductById = (id: string): Promise<Product> =>
-  http.get(`/product/${id}`);
+  http.get(`/products/${id}`);
 
 export const createProduct = (product: Partial<Product>): Promise<Product> =>
-  http.post("/product", product);
+  http.post("/products", product);
 
 export const updateProduct = (
   id: string,
   product: Partial<Product>
-): Promise<Product> => http.patch(`/product/${id}`, product);
+): Promise<Product> => http.patch(`/products/${id}`, product);
 
 export const deleteProduct = (id: string): Promise<void> =>
-  http.delete(`/product/${id}`);
+  http.delete(`/products/${id}`);
