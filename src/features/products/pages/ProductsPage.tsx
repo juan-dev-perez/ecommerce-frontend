@@ -2,11 +2,15 @@ import ProductCard from "../components/ProductCard";
 import { useProductsPaginated } from "../hooks/useProductsPaginated";
 
 export default function ProductsPage() {
-  const { products, meta, page, setPage, loading, error } =
+  const { products, meta, page, setPage, error } =
     useProductsPaginated();
 
-  if (loading) return <div className="text-center">Cargando productos...</div>;
   if (error) return <div className="text-center text-red-500">{error}</div>;
+
+  const handleOnClic = (newNumPage: number):void => {
+    setPage(newNumPage);
+    window.scrollTo({ top: 0, behavior: 'smooth'});
+  }
 
   return (
     <div className="container mx-auto">
@@ -21,7 +25,7 @@ export default function ProductsPage() {
 
       <div className="flex justify-center mt-6 gap-2 mb-10">
         <button
-          onClick={() => setPage(page - 1)}
+          onClick={() => handleOnClic(page - 1)}
           disabled={page === 1}
           className={`btn btn-sm ${
             page === 1 ? "btn-disabled" : "btn-outline"
@@ -32,7 +36,7 @@ export default function ProductsPage() {
         {[...Array(meta.lastPage)].map((_, i) => (
           <button
             key={i}
-            onClick={() => setPage(i + 1)}
+            onClick={() => handleOnClic(i + 1)}
             className={`btn btn-sm ${
               page === i + 1 ? "btn-primary" : "btn-outline"
             }`}
@@ -41,7 +45,7 @@ export default function ProductsPage() {
           </button>
         ))}
         <button
-          onClick={() => setPage(page + 1)}
+          onClick={() => handleOnClic(page + 1)}
           disabled={page === meta.lastPage}
           className={`btn btn-sm ${
             page === meta.lastPage ? "btn-disabled" : "btn-outline"
