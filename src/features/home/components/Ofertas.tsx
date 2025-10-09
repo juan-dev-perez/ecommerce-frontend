@@ -3,10 +3,11 @@ import ProductCard from "../../products/components/ProductCard";
 import { useFetchProducts } from "../../products/hooks/useFetchProducts";
 
 export default function Ofertas() {
-  const { products, loading, error } = useFetchProducts();
+  const limit:number = 4;
+  const { data:response, isLoading, error, isError } = useFetchProducts(limit);
 
-  if (loading) return <div className="text-center">Cargando productos...</div>;
-  if (error) return <div className="text-center text-red-500">{error}</div>;
+  if (isLoading) return <div className="text-center">Cargando productos...</div>;
+  if (isError) return <div className="text-center text-red-500">{`${error}`}</div>;
 
   return (
     <div className="container mx-auto">
@@ -14,7 +15,7 @@ export default function Ofertas() {
         Productos en oferta
       </h1>
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.data.map((product) => (
+        {response?.data.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

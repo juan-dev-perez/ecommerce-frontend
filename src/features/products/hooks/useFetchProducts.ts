@@ -1,35 +1,33 @@
-import { useEffect, useState } from "react";
-import type { ProductPaginate } from "../types";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useFilterStore } from "../../../store/filter.store";
 import { getProducts } from "../../../api/products";
 
-export const initialProductPaginate: ProductPaginate = {
-  data: [],
-  meta: {
-    page: 1,
-    lastPage: 1,
-  },
-};
+export function useFetchProducts(limit?: number) {
+  
+  let filters = useFilterStore((state) => state.filters);
 
-export function useFetchProducts() {
-  const [products, setProducts] = useState<ProductPaginate>(initialProductPaginate);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  if (limit) {
+    filters = { ...filters, limit };
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getProducts(1,8);
-        setProducts(data);
-      } catch (err) {
-        console.error("[useFetchProducts]", err);
-        setError("No se pudieron cargar los productos.");
-      } finally {
-        setLoading(false);
+  const cleanFilters = { ...filters };
+
+  (Object.keys(cleanFilters) as Array<keyof typeof cleanFilters>).forEach(
+    (key) => {
+      if (cleanFilters[key] === null || cleanFilters[key] === "") {
+        delete cleanFilters[key];
       }
-    };
+    }
+  );
 
-    fetchData();
-  }, []);
+  const queryInfo = useQuery({
+    queryKey: ["products", cleanFilters],
+    queryFn: () => getProducts(cleanFilters),
+    placeholderData: keepPreviousData,
+  });
 
-  return { products, loading, error };
+  return {
+    ...queryInfo,
+    filters,
+  };
 }

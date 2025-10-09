@@ -5,8 +5,8 @@ const axiosInstance = axios.create({
 });
 
 export const http = {
-  get: async <T>(url: string): Promise<T> => {
-    const { data } = await axiosInstance.get<T>(url);
+  get: async <T>(url: string, params?:Record<string, any>): Promise<T> => {
+    const { data } = await axiosInstance.get<T>(url,params);
     return data;
   },
   post: async <T>(url: string, body?: any): Promise<T> => {

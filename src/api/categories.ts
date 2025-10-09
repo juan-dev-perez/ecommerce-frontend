@@ -5,6 +5,7 @@ export interface Category {
     name: string;
     slug: string;
     isActive: boolean;
+    parentId: number;
 }
 
 export const getAllCategories = (): Promise<Category[]> => http.get('/categories');
