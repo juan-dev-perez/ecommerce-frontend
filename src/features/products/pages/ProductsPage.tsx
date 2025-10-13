@@ -12,7 +12,7 @@ export default function ProductsPage() {
   }
 
   const products = response?.data || [];
-  const meta = response?.meta || {page:0, lastPage: 0};
+  const meta = response?.meta || { page: 0, lastPage: 0 };
 
   return (
     <div className="container mx-auto">
@@ -21,16 +21,29 @@ export default function ProductsPage() {
         Todos los productos
       </h1>
 
-      <FiltersSidebar/>
+      <div className="flex">
+        <aside className="w-1/4">
+          <div className="sticky top-20 self-start">
+            <FiltersSidebar />
+          </div>
+        </aside>
 
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        <main className="w-3/4 flex flex-col">
+          <div>
+            <h3>sortBar</h3>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          <div>
+            <Paginator meta={meta} />
+          </div>
+        </main>
       </div>
-
-      <Paginator meta={meta} />
     </div>
   );
 }
-

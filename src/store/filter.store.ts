@@ -20,7 +20,7 @@ interface FilterStore {
 
 const initialState: FilterState = {
   page: 1,
-  limit: 8,
+  limit: 12,
   search: '',
   category: null,
   brand: null,
