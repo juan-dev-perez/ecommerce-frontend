@@ -5,12 +5,20 @@ import { getProducts } from "../../../api/products";
 export function useFetchProducts(limit?: number) {
   
   let filters = useFilterStore((state) => state.filters);
+  let sortBy, sortOrder: string = '';
 
   if (limit) {
     filters = { ...filters, limit };
   }
 
-  const cleanFilters = { ...filters };
+  if(filters.sort){
+    [sortBy, sortOrder] = filters.sort.split('-');
+  }
+
+
+  const cleanFilters = { ...filters, sortBy, sortOrder };
+
+  delete cleanFilters.sort;
 
   (Object.keys(cleanFilters) as Array<keyof typeof cleanFilters>).forEach(
     (key) => {

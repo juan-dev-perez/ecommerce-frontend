@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+export type SortOptions = 'price-asc' | 'price-desc' | 'createdAt-asc' | 'createdAt-desc' | 'name-asc' | 'name-desc';
+
 export interface FilterState {
   page: number;
   limit: number;
@@ -8,8 +10,7 @@ export interface FilterState {
   brand: string | null;
   priceMin: number | string;
   priceMax: number | string;
-  sortBy: 'price' | 'createdAt' | 'name';
-  sortOrder: 'asc' | 'desc';
+  sort?: SortOptions;
 }
 
 interface FilterStore {
@@ -26,8 +27,7 @@ const initialState: FilterState = {
   brand: null,
   priceMin: '',
   priceMax: '',
-  sortBy: "createdAt",
-  sortOrder: "desc",
+  sort: "createdAt-desc",
 };
 
 export const useFilterStore = create<FilterStore>((set) => ({
@@ -35,14 +35,19 @@ export const useFilterStore = create<FilterStore>((set) => ({
   filters: initialState,
 
   // La acción para actualizar un filtro
-  updateFilter: (key, value) => set((state) => ({
-    filters: {
+  updateFilter: (key, value) => set((state) => {
+    const newFilters = {
       ...state.filters,
       [key]: value,
-      // Reiniciar la página a 1 si el filtro no es la propia paginación
-      page: key !== 'page' ? 1 : (value as number) ,
+    };
+
+    // Si el filtro que se cambia NO es la página, reiniciamos a la página 1.
+    if (key !== 'page') {
+      newFilters.page = 1;
     }
-  })),
+
+    return { filters: newFilters };
+  }),
 
   // Acción para resetear todos los filtros
   resetFilters: () => set({ filters: initialState }),

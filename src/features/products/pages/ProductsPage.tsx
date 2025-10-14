@@ -1,6 +1,7 @@
 import FiltersSidebar from "../components/FiltersSidebar";
 import Paginator from "../components/Paginator";
 import ProductCard from "../components/ProductCard";
+import SortBar from "../components/SortBar";
 import { useFetchProducts } from "../hooks/useFetchProducts";
 
 export default function ProductsPage() {
@@ -30,7 +31,7 @@ export default function ProductsPage() {
 
         <main className="w-3/4 flex flex-col">
           <div>
-            <h3>sortBar</h3>
+            <SortBar />
           </div>
 
           <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
