@@ -1,54 +1,63 @@
 import { useFilterStore } from "../../../store/filter.store";
-import { useCategories } from "../hooks/useCategories";
+import { useCategoryTree } from "../hooks/useCategoryTree";
+import CategoryNode from "./CategoryNode";
 
 export default function FiltersSidebar() {
-    
-  // const { category, setCategory } = useFilterStore((state) => ({
-  //   category: state.category,
-  //   setCategory: state.setCategory,
-  // }));
+  const activeCategory = useFilterStore((state) => state.filters.category);
+  const updateFilter = useFilterStore((state) => state.updateFilter);
 
-  const { categories, isLoading, isError } = useCategories();
+  const { categoryTree, isLoading, isError } = useCategoryTree();
 
-  // 3. Manejador para cuando el usuario selecciona una categoría
-  const handleCategoryClick = (categoryId: string | null) => {
-    // Actualizamos el estado global de filtros
-    // setCategory(categoryId);
+  const handleCategorySelect = (categorySlug: string | null) => {
+    updateFilter("category", categorySlug);
   };
 
   if (isLoading) return <div>Cargando categorías...</div>;
   if (isError) return <div>Error al cargar categorías</div>;
 
   return (
-    <aside>
-      <h2>Categorías</h2>
+    <>
+      <h2>Filtros</h2>
+      <h3>Categorías</h3>
       <nav>
         <ul>
           {/* Opción para limpiar el filtro de categoría */}
           <li>
             <button
-              onClick={() => handleCategoryClick(null)}
-              // style={{ fontWeight: category === null ? "bold" : "normal" }}
+              className={activeCategory === null ? "font-bold" : ""}
+              onClick={() => handleCategorySelect(null)}
             >
               Todas
             </button>
           </li>
 
+{categoryTree.map((rootNode) => (
+                <CategoryNode
+                  key={rootNode.id}
+                  node={rootNode}
+                  onCategorySelect={handleCategorySelect}
+                  activeCategorySlug={activeCategory}
+                />
+              ))}
+          
+
           {/* Listamos las categorías obtenidas */}
-          {categories?.map((cat) => (
+          {/* {categoryTree.map((cat) => (
             <li key={cat.id}>
               <button
-                // onClick={() => handleCategoryClick(cat.id)}
-                // style={{ fontWeight: category === cat.id ? "bold" : "normal" }}
+                className={activeCategory === cat.slug ? "font-bold" : ""}
+                onClick={() => handleCategorySelect(cat.slug)}
               >
                 {cat.name}
               </button>
             </li>
-          ))}
+          ))} */}
+
+
         </ul>
       </nav>
 
       {/* Aquí podríamos añadir más filtros en el futuro (precio, etc.) */}
-    </aside>
+    </>
   );
 }

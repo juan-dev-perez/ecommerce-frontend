@@ -19,7 +19,17 @@ export interface Product {
 export interface ProductPaginate {
   data: Product[];
   meta: {
+    total: number
     page: number;
-    lastPage: number
+    lastPage: number,
   }
+}
+
+export interface Category {
+    id: number;
+    name: string;
+    slug: string;
+    isActive: boolean;
+    parentId: number;
+    createdAt: string;
 }
