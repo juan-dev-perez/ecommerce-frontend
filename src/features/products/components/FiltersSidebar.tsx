@@ -30,30 +30,14 @@ export default function FiltersSidebar() {
               Todas
             </button>
           </li>
-
-{categoryTree.map((rootNode) => (
-                <CategoryNode
-                  key={rootNode.id}
-                  node={rootNode}
-                  onCategorySelect={handleCategorySelect}
-                  activeCategorySlug={activeCategory}
-                />
-              ))}
-          
-
-          {/* Listamos las categorías obtenidas */}
-          {/* {categoryTree.map((cat) => (
-            <li key={cat.id}>
-              <button
-                className={activeCategory === cat.slug ? "font-bold" : ""}
-                onClick={() => handleCategorySelect(cat.slug)}
-              >
-                {cat.name}
-              </button>
-            </li>
-          ))} */}
-
-
+          {categoryTree.map((rootNode) => (
+            <CategoryNode
+              key={rootNode.id}
+              node={rootNode}
+              onCategorySelect={handleCategorySelect}
+              activeCategorySlug={activeCategory}
+            />
+          ))}
         </ul>
       </nav>
 

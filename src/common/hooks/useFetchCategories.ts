@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllCategories} from "../../api/categories";
+import { getActiveCategories} from "../../api/categories";
 import type { Category } from "../../features/products/types";
 
 export const useFetchCategories = () => {
@@ -7,7 +7,7 @@ export const useFetchCategories = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await getAllCategories();
+      const data = await getActiveCategories();
       setCategories(data);
     };
     fetchCategories();

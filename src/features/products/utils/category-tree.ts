@@ -10,6 +10,7 @@ export interface CategoryNode extends Category {
  * @returns Un array de categorías de nivel raíz, con sus hijos anidados.
  */
 export function buildCategoryTree(categories: Category[]): CategoryNode[] {
+  
   // Usamos un mapa para un acceso súper rápido a cada categoría por su ID.
   const categoryMap = new Map<number, CategoryNode>();
 
