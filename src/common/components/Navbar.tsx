@@ -1,48 +1,76 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../store/cart.store";
 import { formatPrice } from "../../utils/currencyFormat";
-import { useFetchCategories } from "../hooks/useFetchCategories";
+import { useState } from "react";
+import { MegaMenu } from "./MegaMenu";
 
 function Navbar() {
-  const { categories } = useFetchCategories();
   const { getTotalItems, getTotalPrice } = useCart();
   const totalItems = getTotalItems();
   const totalPrice = getTotalPrice();
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <header className="navbar shadow-sm sticky top-0 z-50 w-full backdrop-blur bg-white/80 supports-[backdrop-filter]:bg-white/60">
       <div className="container flex h-full items-center justify-between mx-auto">
-        <div className="flex flex-row gap-8">
-          <Link to={"/"} className="flex items-center space-x-1">
-            <div className="btn btn-sm btn-square btn-primary ">
-              <span className="text-primary-foreground font-bold text-lg">
-                TF
-              </span>
-            </div>
-            <span className="font-bold text-xl">TecnoFix</span>
-          </Link>
-          <ul className="flex items-center gap-6">
-            <li>
-              <Link to={"/products"} className="font-semibold">
-                Productos
-              </Link>
-            </li>
-            {categories != undefined &&
-              categories.map((category) => {
-                return (
-                  <li key={category.id}>
-                    <Link to={`/category/${category.name}`}>
-                      {category.name}
-                    </Link>
-                  </li>
-                );
-              })}
-          </ul>
+
+        {/* Logo */}
+        <Link to={"/"} className="flex items-center space-x-1">
+          <div className="btn btn-sm btn-square btn-primary ">
+            <span className="text-primary-foreground font-bold text-lg">
+              TF
+            </span>
+          </div>
+          <span className="font-bold text-xl">TecnoFix</span>
+        </Link>
+
+        {/* Parte central */}
+        <div className="flex-1 flex items-center justify-center space-x-6">
+          
+          <div>
+            <button
+              onMouseEnter={() => setIsMenuOpen(true)}
+              className="flex items-center space-x-2 py-2 rounded-md hover:bg-gray-100"
+            >
+              <span>Categorías</span>
+              <svg
+                className={`w-4 h-4 transition-transform ${
+                  isMenuOpen ? "rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            <MegaMenu
+              isOpen={isMenuOpen}
+              onClose={() => setIsMenuOpen(false)}
+            />
+          </div>
+
+          <div>Ofertas</div>
+
+          {/* Barra de búsqueda */}
+          <div className="w-full max-w-md ml-6">
+            <input
+              type="text"
+              placeholder="Buscar productos, marcas y más..."
+              className="input px-3 py-2 w-full"
+            />
+          </div>
         </div>
 
+        {/* Carrito e informacion de usuario */}
         <div className="flex flex-row gap-4">
-          {/* input del buscador */}
-          <input type="search" placeholder="Buscar" className="input w-70" />
 
           {/* menu carrito */}
           <div className="dropdown dropdown-end">
@@ -130,6 +158,7 @@ function Navbar() {
             </ul>
           </div>
         </div>
+
       </div>
     </header>
   );
