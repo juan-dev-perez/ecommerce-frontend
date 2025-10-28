@@ -57,6 +57,7 @@ function Navbar() {
             />
           </div>
 
+          <div>Marcas</div>
           <div>Ofertas</div>
 
           {/* Barra de búsqueda */}

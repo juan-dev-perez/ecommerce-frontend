@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import ProductCard from "../../products/components/ProductCard";
 import { useFetchProducts } from "../../products/hooks/useFetchProducts";
+import { useFilterStore } from "../../../store/filter.store";
 
 export default function Ofertas() {
+  const resetFilters = useFilterStore(state => state.resetFilters);
+  resetFilters();
   const limit:number = 4;
   const { data:response, isLoading, error, isError } = useFetchProducts(limit);
 
