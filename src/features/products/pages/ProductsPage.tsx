@@ -17,13 +17,12 @@ export default function ProductsPage() {
 
   return (
     <div className="container mx-auto">
-      
       <h1 className="text-neutral text-3xl font-bold mb-2  mt-10">
         Todos los productos
       </h1>
 
       <div className="flex justify-between items-center">
-      <p className="text-secondary">{meta.total} productos encontrados</p>
+        <p className="text-secondary">{meta.total} productos encontrados</p>
         <SortBar />
       </div>
       <div className="divider"></div>
@@ -42,9 +41,7 @@ export default function ProductsPage() {
             ))}
           </div>
 
-          <div>
-            <Paginator meta={meta} />
-          </div>
+          <Paginator meta={meta} />
         </main>
       </div>
     </div>

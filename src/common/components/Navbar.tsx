@@ -3,6 +3,7 @@ import { useCart } from "../../store/cart.store";
 import { formatPrice } from "../../utils/currencyFormat";
 import { useState } from "react";
 import { MegaMenu } from "./MegaMenu";
+import { SearchBar } from "./SearchBar";
 
 function Navbar() {
   const { getTotalItems, getTotalPrice } = useCart();
@@ -14,7 +15,6 @@ function Navbar() {
   return (
     <header className="navbar shadow-sm sticky top-0 z-50 w-full backdrop-blur bg-white/80 supports-[backdrop-filter]:bg-white/60">
       <div className="container flex h-full items-center justify-between mx-auto">
-
         {/* Logo */}
         <Link to={"/"} className="flex items-center space-x-1">
           <div className="btn btn-sm btn-square btn-primary ">
@@ -27,7 +27,6 @@ function Navbar() {
 
         {/* Parte central */}
         <div className="flex-1 flex items-center justify-center space-x-6">
-          
           <div>
             <button
               onMouseEnter={() => setIsMenuOpen(true)}
@@ -61,18 +60,11 @@ function Navbar() {
           <div>Ofertas</div>
 
           {/* Barra de búsqueda */}
-          <div className="w-full max-w-md ml-6">
-            <input
-              type="text"
-              placeholder="Buscar productos, marcas y más..."
-              className="input px-3 py-2 w-full"
-            />
-          </div>
+          <SearchBar />
         </div>
 
         {/* Carrito e informacion de usuario */}
         <div className="flex flex-row gap-4">
-
           {/* menu carrito */}
           <div className="dropdown dropdown-end">
             <div
@@ -159,7 +151,6 @@ function Navbar() {
             </ul>
           </div>
         </div>
-
       </div>
     </header>
   );

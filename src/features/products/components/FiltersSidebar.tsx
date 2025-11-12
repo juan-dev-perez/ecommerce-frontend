@@ -1,5 +1,6 @@
 import { useFilterStore } from "../../../store/filter.store";
 import { useCategoryTree } from "../hooks/useCategoryTree";
+import { ActiveFilters } from "./ActiveFilters";
 import CategoryNode from "./CategoryNode";
 
 export default function FiltersSidebar() {
@@ -17,7 +18,8 @@ export default function FiltersSidebar() {
 
   return (
     <>
-      <h2>Filtros</h2>
+      <h2 className="text-xl">Filtros</h2>
+    <ActiveFilters/>
       <h3>Categorías</h3>
       <nav>
         <ul>
