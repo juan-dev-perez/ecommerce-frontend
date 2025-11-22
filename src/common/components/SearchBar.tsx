@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useFilterStore } from "../../store/filter.store";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Search } from "lucide-react";
 
 export const SearchBar = () => {
   const searchTermFromStore = useFilterStore((state) => state.filters.search);
@@ -15,9 +16,9 @@ export const SearchBar = () => {
     if (localSearch !== searchTermFromStore) {
       updateFilter("search", localSearch);
     }
-    
-    if (location.pathname !== '/products') {
-      navigate('/products');
+
+    if (location.pathname !== "/products") {
+      navigate("/products");
     }
   };
 
@@ -46,19 +47,7 @@ export const SearchBar = () => {
           className="absolute inset-y-0 right-0 flex items-center justify-center w-10 text-gray-400 hover:text-gray-600"
           aria-label="Buscar"
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
+          <Search size={19} />
         </button>
       </div>
     </form>

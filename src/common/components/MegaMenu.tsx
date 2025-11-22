@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom"; // Asumiendo que usas React Router
 import { useCategoryTree } from "../../features/products/hooks/useCategoryTree";
 import type { CategoryNode } from "../../features/products/utils/category-tree";
+import { ChevronRight } from "lucide-react";
 
 interface MegaMenuProps {
   isOpen: boolean;
@@ -45,26 +46,21 @@ export const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
               <ul>
                 {categoryTree.map((rootCat) => (
                   <li key={rootCat.id}>
-                    <Link to={`/categoria/${rootCat.slug}`}
+                    <Link
+                      to={`/categoria/${rootCat.slug}`}
                       onMouseEnter={() => setActiveRootCategory(rootCat)}
                       onClick={() => handleLinkClick()}
                       className="w-full text-left p-2 rounded-md hover:bg-gray-100 flex justify-between items-center"
                     >
-                      <span className={rootCat === activeRootCategory ? 'text-blue-600' : ''}>{rootCat.name}</span>
-                      {/* icono */}
-                      <svg
-                        className="w-4 h-4 text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                      <span
+                        className={
+                          rootCat === activeRootCategory ? "text-blue-600" : ""
+                        }
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
+                        {rootCat.name}
+                      </span>
+                      {/* icono */}
+                      <ChevronRight size={18} className="text-gray-400" />
                     </Link>
                   </li>
                 ))}
@@ -75,7 +71,10 @@ export const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
             <div className="col-span-10">
               {activeRootCategory ? (
                 <div>
-                  <Link to={`/categoria/${activeRootCategory.slug}`} className="font-bold text-blue-600 uppercase text-sm">
+                  <Link
+                    to={`/categoria/${activeRootCategory.slug}`}
+                    className="font-bold text-blue-600 uppercase text-sm"
+                  >
                     {activeRootCategory.name}
                   </Link>
                   {/* Organizamos las subcategorías en columnas para un look más limpio */}
@@ -114,9 +113,6 @@ export const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
                 </div>
               )}
             </div>
-
-            
-
           </div>
         )}
       </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { CategoryNode as CategoryNodeType } from "../utils/category-tree";
+import { ChevronRight } from "lucide-react";
 
 export interface CategoryNodeProps {
   node: CategoryNodeType;
@@ -7,7 +8,11 @@ export interface CategoryNodeProps {
   activeCategorySlug: string | null;
 }
 
-export default function CategoryNode({ node, onCategorySelect, activeCategorySlug }: CategoryNodeProps) {
+export default function CategoryNode({
+  node,
+  onCategorySelect,
+  activeCategorySlug,
+}: CategoryNodeProps) {
   // Estado local para saber si este nodo está expandido o no
   const [isOpen, setIsOpen] = useState(false);
 
@@ -30,9 +35,15 @@ export default function CategoryNode({ node, onCategorySelect, activeCategorySlu
       <div className="flex items-center">
         {/* Icono para expandir/colapsar, solo si hay hijos */}
         {hasChildren ? (
-          <button onClick={handleToggleClick} className="p-1 rounded-full hover:bg-gray-200">
+          <button
+            onClick={handleToggleClick}
+            className="p-1 rounded-full hover:bg-gray-200"
+          >
             {/* Cambia el icono dependiendo del estado 'isOpen' */}
-            <svg className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            <ChevronRight
+              size={16}
+              className={`transition-transform ${isOpen ? "rotate-90" : ""}`}
+            />
           </button>
         ) : (
           // Espaciador para alinear los textos si no hay hijos
@@ -43,7 +54,9 @@ export default function CategoryNode({ node, onCategorySelect, activeCategorySlu
         <button
           onClick={handleNodeClick}
           className={`text-left flex-grow px-2 py-1 rounded-md text-sm ${
-            isActive ? 'bg-blue-100 text-blue-800 font-semibold' : 'hover:bg-gray-100'
+            isActive
+              ? "bg-blue-100 text-blue-800 font-semibold"
+              : "hover:bg-gray-100"
           }`}
         >
           {node.name}
@@ -65,4 +78,4 @@ export default function CategoryNode({ node, onCategorySelect, activeCategorySlu
       )}
     </li>
   );
-};
+}

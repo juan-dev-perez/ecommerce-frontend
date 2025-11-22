@@ -4,6 +4,7 @@ import { formatPrice } from "../../utils/currencyFormat";
 import { useState } from "react";
 import { MegaMenu } from "./MegaMenu";
 import { SearchBar } from "./SearchBar";
+import { ChevronDown, ShoppingCart } from "lucide-react";
 
 function Navbar() {
   const { getTotalItems, getTotalPrice } = useCart();
@@ -33,21 +34,12 @@ function Navbar() {
               className="flex items-center space-x-2 py-2 rounded-md hover:bg-gray-100"
             >
               <span>Categorías</span>
-              <svg
-                className={`w-4 h-4 transition-transform ${
+              <ChevronDown
+                size={18}
+                className={`transition-transform ${
                   isMenuOpen ? "rotate-180" : ""
                 }`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+              />
             </button>
 
             <MegaMenu
@@ -73,21 +65,7 @@ function Navbar() {
               className="btn btn-ghost btn-circle"
             >
               <div className="indicator">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  {" "}
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                  />{" "}
-                </svg>
+                <ShoppingCart size={22}/>
                 <span
                   className={`badge badge-sm indicator-item ${
                     totalItems === 0 && "invisible"
