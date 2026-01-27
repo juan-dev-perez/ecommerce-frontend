@@ -36,7 +36,7 @@ export default function CartPage() {
         {items.map((item) => (
           <div key={item.id} className="card bg-base-100 shadow-md">
             <div className="card-body flex flex-col md:flex-row gap-4 items-center">
-              <Link to={`/products/${item.id}`}>
+              <Link to={`/products/${item.slug}`}>
                 <img
                   src={item.image}
                   alt={item.name}
@@ -46,7 +46,7 @@ export default function CartPage() {
 
               <div className="flex-1">
                 <Link
-                  to={`/products/${item.id}`}
+                  to={`/products/${item.slug}`}
                   className="text-lg font-semibold"
                 >
                   {item.name}

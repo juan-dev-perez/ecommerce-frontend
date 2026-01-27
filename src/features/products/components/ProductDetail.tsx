@@ -22,6 +22,7 @@ export default function ProductDetail({ product }: Props) {
       {
         id: product.id,
         name: product.name,
+        slug: product.slug,
         price: product.price,
         image: product.images?.[0]?.url ?? "",
         stock: product.stock

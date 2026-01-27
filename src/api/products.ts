@@ -8,8 +8,8 @@ export const getProducts = (params: Record<string, any>) => {
 export const getOfferProducts = (limit: number): Promise<Product[]> =>
   http.get(`/products/offers?limit=${limit}`);
 
-export const getProductById = (id: string): Promise<Product> =>
-  http.get(`/products/${id}`);
+export const getProductBySlug = (slug: string): Promise<Product> =>
+  http.get(`/products/${slug}`);
 
 export const createProduct = (product: Partial<Product>): Promise<Product> =>
   http.post("/products", product);

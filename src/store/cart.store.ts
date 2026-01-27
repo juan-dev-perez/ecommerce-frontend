@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware";
 type CartItem = {
   id: number;
   name: string;
+  slug: string;
   price: number;
   quantity: number;
   image: string;
