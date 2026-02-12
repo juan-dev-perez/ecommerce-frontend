@@ -39,7 +39,7 @@ export const SearchBar = () => {
           aria-label="Término de búsqueda"
         />
         <button type="submit" className="btn btn-ghost btn-sm rounded-xl" aria-label="Buscar">
-          Buscar
+          <span className="text-sm">Buscar</span>
         </button>
       </label>
     </form>

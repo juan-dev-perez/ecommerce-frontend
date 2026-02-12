@@ -4,7 +4,7 @@ import { formatPrice } from "../../utils/currencyFormat";
 import { useState } from "react";
 import { MegaMenu } from "./MegaMenu";
 import { SearchBar } from "./SearchBar";
-import { ChevronDown, ShoppingCart } from "lucide-react";
+import { ChevronDown, Menu, ShoppingCart, Search, User } from "lucide-react";
 
 function Navbar() {
   const { getTotalItems, getTotalPrice } = useCart();
@@ -12,32 +12,31 @@ function Navbar() {
   const totalPrice = getTotalPrice();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-base-300 bg-base-100/80 backdrop-blur supports-[backdrop-filter]:bg-base-100/60">
-      <div className="mx-auto w-full max-w-6xl px-4">
-        <div className="navbar px-0">
+      <div className="mx-auto w-full max-w-6xl px-4 relative">
+        <div className="navbar px-0 flex justify-between">
           {/* Logo */}
-          <div className="flex">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="h-10 w-10 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <span className="font-bold text-primary">TF</span>
+          <Link to="/" className="flex items-center gap-2">
+            <div className="h-10 w-10 rounded-2xl bg-primary/10 flex items-center justify-center">
+              <span className="font-bold text-primary">TF</span>
+            </div>
+            <div className="leading-tight">
+              <div className="font-bold text-lg">TecnoFix</div>
+              <div className="text-xs text-base-content/60 hidden sm:block">
+                Tech Store
               </div>
-              <div className="leading-tight">
-                <div className="font-bold text-lg">TecnoFix</div>
-                <div className="text-xs text-base-content/60 hidden sm:block">
-                  Tech Store
-                </div>
-              </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
 
           {/* Centro (desktop) */}
-          <div className="hidden lg:flex flex-1 min-w-80 items-center justify-center gap-2">
-            <div className="relative">
+          <div className="lg:relative hidden lg:flex flex-1 min-w-80 items-center justify-center gap-2">
+            <div>
               <button
                 onMouseEnter={() => setIsMenuOpen(true)}
-                className="btn btn-ghost btn-sm rounded-2xl"
+                className="btn btn-ghost btn-sm rounded-2xl text-sm"
               >
                 Categorías
                 <ChevronDown
@@ -46,32 +45,47 @@ function Navbar() {
                 />
               </button>
 
-              <MegaMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+              <MegaMenu
+                isOpen={isMenuOpen}
+                onClose={() => setIsMenuOpen(false)}
+              />
             </div>
-
-            <button className="btn btn-ghost btn-sm rounded-2xl">Marcas</button>
-            <button className="btn btn-ghost btn-sm rounded-2xl">Ofertas</button>
-
+            <button className="btn btn-ghost btn-sm rounded-2xl text-sm">Marcas</button>
+            <button className="btn btn-ghost btn-sm rounded-2xl text-sm">
+              Ofertas
+            </button>
             <div className="w-full max-w-md">
               <SearchBar />
             </div>
           </div>
 
           {/* Derecha */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center lg:gap-2">
             {/* Search en mobile */}
-            <div className="lg:hidden">
-              <Link to="/products" className="btn btn-ghost btn-sm rounded-2xl">
-                Buscar
-              </Link>
+            <div
+              className="lg:hidden btn btn-ghost btn-circle"
+              onClick={() => setIsSearchBarOpen(!isSearchBarOpen)}
+            >
+              <Search size={22} />
+            </div>
+            <div
+              className={`absolute top-full left-0 right-0 z-50 bg-base-100 py-2 ${!isSearchBarOpen ? "hidden" : "block"}`}
+            >
+              <SearchBar />
             </div>
 
             {/* Carrito */}
             <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle"
+              >
                 <div className="indicator">
                   <ShoppingCart size={22} />
-                  <span className={`badge badge-sm indicator-item ${totalItems === 0 ? "invisible" : ""}`}>
+                  <span
+                    className={`badge badge-sm indicator-item ${totalItems === 0 ? "invisible" : ""}`}
+                  >
                     {totalItems}
                   </span>
                 </div>
@@ -82,15 +96,23 @@ function Navbar() {
                 className="mt-3 w-64 rounded-3xl bg-base-100 border border-base-300 shadow-sm dropdown-content"
               >
                 <div className="p-4">
-                  <div className="font-semibold text-base">
-                    {totalItems === 0 ? "Carrito vacío" : `${totalItems} ${totalItems === 1 ? "ítem" : "ítems"}`}
+                  <div className="font-semibold text-sm">
+                    {totalItems === 0
+                      ? "Carrito vacío"
+                      : `${totalItems} ${totalItems === 1 ? "ítem" : "ítems"}`}
                   </div>
                   <div className="text-sm text-base-content/70 mt-1">
-                    Subtotal: <span className="font-medium text-base-content">{formatPrice(totalPrice)}</span>
+                    Subtotal:{" "}
+                    <span className="font-medium text-base-content">
+                      {formatPrice(totalPrice)}
+                    </span>
                   </div>
 
                   <div className="mt-4">
-                    <Link to="/cart" className="btn btn-primary btn-sm w-full rounded-2xl">
+                    <Link
+                      to="/cart"
+                      className="btn btn-primary btn-sm w-full rounded-2xl"
+                    >
                       Ver carrito
                     </Link>
                   </div>
@@ -100,51 +122,75 @@ function Navbar() {
 
             {/* Usuario (placeholder) */}
             <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full ring-2 ring-base-300">
-                  <img
-                    alt="User avatar"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  />
-                </div>
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle"
+              >
+                <User size={22} />
               </div>
 
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 w-52 rounded-3xl bg-base-100 border border-base-300 p-2 shadow-sm"
+                className="menu menu-md dropdown-content mt-3 w-52 rounded-3xl bg-base-100 border border-base-300 p-2 shadow-sm"
               >
-                <li><a>Perfil</a></li>
-                <li><a>Configuración</a></li>
-                <li><a>Salir</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Barra secundaria (mobile/tablet) */}
-        <div className="lg:hidden pb-3">
-          <div className="flex items-center gap-2">
-            <div className="flex-1">
-              <SearchBar />
-            </div>
-
-            <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-outline btn-sm rounded-2xl">
-                Menú
-              </label>
-              <ul tabIndex={0} className="menu dropdown-content mt-3 w-56 rounded-3xl bg-base-100 border border-base-300 p-2 shadow-sm">
                 <li>
-                  <button
-                    onMouseEnter={() => setIsMenuOpen(true)}
-                    onClick={() => setIsMenuOpen((v) => !v)}
-                  >
-                    Categorías
-                  </button>
+                  <a>Perfil</a>
                 </li>
-                <li><Link to="/products">Productos</Link></li>
-                <li><a>Marcas</a></li>
-                <li><a>Ofertas</a></li>
+                <li>
+                  <a>Configuración</a>
+                </li>
+                <li>
+                  <a>Salir</a>
+                </li>
               </ul>
+            </div>
+
+            {/* Menu Mobile */}
+            <div className="lg:hidden">
+              <div className="dropdown dropdown-end">
+                <label
+                  tabIndex={0}
+                  className="btn btn-ghost btn-circle"
+                  aria-label="Abrir menú"
+                >
+                  <Menu size={22} />
+                </label>
+
+                <ul
+                  tabIndex={0}
+                  className="menu dropdown-content mt-3 w-64 rounded-3xl bg-base-100 border border-base-300 p-2 shadow-sm"
+                >
+                  <li>
+                    <Link to="/products">Productos</Link>
+                  </li>
+                  <li>
+                    <a>Marcas</a>
+                  </li>
+                  <li>
+                    <a>Ofertas</a>
+                  </li>
+
+                  <li className="menu-title mt-2">
+                    <span>Categorías</span>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => setIsMenuOpen((v) => !v)}
+                      className="flex items-center justify-between"
+                    >
+                      Ver categorías
+                      <ChevronDown
+                        size={18}
+                        className={`transition-transform ${isMenuOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                  </li>
+
+                  {/* Si querés, acá podés renderizar una versión mobile de categorías */}
+                  {/* Por ahora solo abrimos/cerramos el MegaMenu si lo adaptás a mobile */}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
