@@ -27,29 +27,21 @@ export const SearchBar = () => {
   }, [searchTermFromStore]);
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-md ml-6"
-      role="search"
-    >
-      <div className="relative">
+    <form onSubmit={handleSubmit} role="search">
+      <label className="input input-bordered w-full flex items-center gap-2 rounded-2xl bg-base-100">
+        <Search size={18} className="text-base-content/50" />
         <input
           type="text"
-          placeholder="Buscar productos..."
-          className="block w-full pr-10 pl-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          placeholder="Buscar productos…"
+          className="grow"
           value={localSearch}
           onChange={(e) => setLocalSearch(e.target.value)}
           aria-label="Término de búsqueda"
         />
-
-        <button
-          type="submit"
-          className="absolute inset-y-0 right-0 flex items-center justify-center w-10 text-gray-400 hover:text-gray-600"
-          aria-label="Buscar"
-        >
-          <Search size={19} />
+        <button type="submit" className="btn btn-ghost btn-sm rounded-xl" aria-label="Buscar">
+          Buscar
         </button>
-      </div>
+      </label>
     </form>
   );
 };

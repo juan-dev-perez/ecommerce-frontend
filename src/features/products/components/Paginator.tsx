@@ -1,15 +1,11 @@
 import { useFilterStore } from "../../../store/filter.store";
 
 interface params {
-  meta: {
-    page: number;
-    lastPage: number;
-  };
+  meta: { page: number; lastPage: number };
 }
 
 export default function Paginator({ meta }: params) {
   const { page, lastPage } = meta;
-
   const updateFilter = useFilterStore((state) => state.updateFilter);
 
   const handleOnClic = (newNumPage: number): void => {
@@ -18,31 +14,29 @@ export default function Paginator({ meta }: params) {
   };
 
   return (
-    <div className="flex justify-center mt-6 gap-2 mb-10">
+    <div className="flex flex-wrap justify-center gap-2">
       <button
         onClick={() => handleOnClic(page - 1)}
         disabled={page === 1}
-        className={`btn btn-sm ${page === 1 ? "btn-disabled" : "btn-outline"}`}
+        className="btn btn-sm btn-outline rounded-2xl disabled:opacity-50"
       >
         « Anterior
       </button>
-      {[...Array(lastPage)].map((_, i) => (
+
+      {Array.from({ length: lastPage }, (_, i) => i + 1).map((p) => (
         <button
-          key={i}
-          onClick={() => handleOnClic(i + 1)}
-          className={`btn btn-sm ${
-            page === i + 1 ? "btn-primary" : "btn-outline"
-          }`}
+          key={p}
+          onClick={() => handleOnClic(p)}
+          className={`btn btn-sm rounded-2xl ${page === p ? "btn-primary" : "btn-outline"}`}
         >
-          {i + 1}
+          {p}
         </button>
       ))}
+
       <button
         onClick={() => handleOnClic(page + 1)}
         disabled={page === lastPage}
-        className={`btn btn-sm ${
-          page === lastPage ? "btn-disabled" : "btn-outline"
-        }`}
+        className="btn btn-sm btn-outline rounded-2xl disabled:opacity-50"
       >
         Siguiente »
       </button>

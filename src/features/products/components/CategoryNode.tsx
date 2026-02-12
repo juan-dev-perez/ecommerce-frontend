@@ -13,59 +13,55 @@ export default function CategoryNode({
   onCategorySelect,
   activeCategorySlug,
 }: CategoryNodeProps) {
-  // Estado local para saber si este nodo está expandido o no
   const [isOpen, setIsOpen] = useState(false);
 
   const hasChildren = node.children && node.children.length > 0;
   const isActive = activeCategorySlug === node.slug;
 
-  // Manejador para el clic en el nombre de la categoría
   const handleNodeClick = () => {
     onCategorySelect(node.slug);
+    // opcional: si querés que al seleccionar una categoría con hijos se abra
+    if (hasChildren) setIsOpen(true);
   };
 
-  // Manejador para el clic en el icono de expandir/colapsar
   const handleToggleClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita que el clic también seleccione la categoría
-    setIsOpen(!isOpen);
+    e.stopPropagation();
+    setIsOpen((v) => !v);
   };
 
   return (
-    <li className="my-1">
-      <div className="flex items-center">
-        {/* Icono para expandir/colapsar, solo si hay hijos */}
+    <li>
+      <div className="flex items-center gap-1">
         {hasChildren ? (
           <button
             onClick={handleToggleClick}
-            className="p-1 rounded-full hover:bg-gray-200"
+            className="btn btn-ghost btn-xs btn-circle"
+            aria-label={isOpen ? "Contraer" : "Expandir"}
           >
-            {/* Cambia el icono dependiendo del estado 'isOpen' */}
             <ChevronRight
               size={16}
               className={`transition-transform ${isOpen ? "rotate-90" : ""}`}
             />
           </button>
         ) : (
-          // Espaciador para alinear los textos si no hay hijos
-          <span className="w-6"></span>
+          <span className="w-8" />
         )}
 
-        {/* Botón con el nombre de la categoría */}
         <button
           onClick={handleNodeClick}
-          className={`text-left flex-grow px-2 py-1 rounded-md text-sm ${
+          className={`flex-1 text-left rounded-2xl px-3 py-2 text-sm transition ${
             isActive
-              ? "bg-blue-100 text-blue-800 font-semibold"
-              : "hover:bg-gray-100"
+              ? "bg-base-200 text-primary font-semibold"
+              : "hover:bg-base-200"
           }`}
+          title={node.name}
         >
           {node.name}
         </button>
       </div>
 
-      {/* Renderizado Recursivo: Si el nodo está abierto y tiene hijos, renderiza una nueva lista de nodos hijos */}
       {isOpen && hasChildren && (
-        <ul className="pl-6 border-l border-gray-200 ml-3">
+        <ul className="mt-2 ml-4 pl-3 border-l border-base-300 space-y-1">
           {node.children.map((childNode) => (
             <CategoryNode
               key={childNode.id}
